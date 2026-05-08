@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>나승후 · Portfolio</title>
+  <meta name="description" content="RAG · MCP · 도메인 주도 설계 — 구조 설계가 즐거운 백엔드/풀스택 개발자 나승후의 포트폴리오" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="나승후 · Portfolio" />
+  <meta property="og:description" content="RAG · MCP · 도메인 주도 설계 — 구조 설계가 즐거운 백엔드/풀스택 개발자" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://xonme888.github.io" />
+
+  <!-- Pretendard -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Pretendard Variable"', 'Pretendard', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+          },
+          colors: {
+            base: {
+              DEFAULT: '#0a0a0a',
+              soft: '#111111',
+            },
+          },
+          animation: {
+            'fade-up': 'fadeUp 0.6s ease-out forwards',
+            'fade-in': 'fadeIn 0.8s ease-out forwards',
+            'gradient': 'gradient 8s ease infinite',
+          },
+          keyframes: {
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            gradient: {
+              '0%, 100%': { backgroundPosition: '0% 50%' },
+              '50%': { backgroundPosition: '100% 50%' },
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-feature-settings: "ss06"; }
+    .gradient-text {
+      background: linear-gradient(120deg, #34d399 0%, #22d3ee 50%, #a78bfa 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradient 8s ease infinite;
+    }
+    .glow {
+      box-shadow:
+        0 0 0 1px rgba(52, 211, 153, 0.1),
+        0 0 40px -10px rgba(52, 211, 153, 0.3);
+    }
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 60% 50% at 50% 30%, #000 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 30%, #000 40%, transparent 100%);
+    }
+    .card-hover {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      border-color: rgba(52, 211, 153, 0.4);
+    }
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    [data-reveal].visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="bg-base text-zinc-200 antialiased font-sans selection:bg-emerald-400/30 selection:text-emerald-100">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-base/70 border-b border-white/5">
+    <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+      <a href="#" class="font-mono text-sm text-zinc-300 hover:text-emerald-400 transition">
+        <span class="text-emerald-400">$</span> naseunghoo
+      </a>
+      <div class="hidden md:flex items-center gap-7 text-sm text-zinc-400">
+        <a href="#about" class="hover:text-zinc-100 transition">About</a>
+        <a href="#projects" class="hover:text-zinc-100 transition">Projects</a>
+        <a href="#skills" class="hover:text-zinc-100 transition">Skills</a>
+        <a href="#contact" class="hover:text-zinc-100 transition">Contact</a>
+      </div>
+      <a href="https://github.com/xonme888" target="_blank" rel="noopener"
+         class="text-sm font-medium text-zinc-300 hover:text-emerald-400 transition flex items-center gap-1.5">
+        GitHub
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+        </svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
+    <div class="absolute inset-0 grid-bg pointer-events-none"></div>
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <div class="relative max-w-3xl text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-400/20 bg-emerald-400/5 text-xs text-emerald-300 mb-8 animate-fade-in">
+        <span class="relative flex h-1.5 w-1.5">
+          <span class="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping"></span>
+          <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400"></span>
+        </span>
+        Available for opportunities
+      </div>
+
+      <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 animate-fade-up">
+        안녕하세요,<br/>
+        <span class="gradient-text">나승후</span>입니다.
+      </h1>
+
+      <p class="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed mb-10 animate-fade-up" style="animation-delay: 0.1s;">
+        <span class="text-emerald-400 font-medium">RAG</span> ·
+        <span class="text-cyan-400 font-medium">MCP</span> ·
+        <span class="text-violet-400 font-medium">도메인 주도 설계</span><br class="hidden sm:block"/>
+        구조 설계가 즐거운 <span class="text-zinc-200">백엔드/풀스택 개발자</span>
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-3 animate-fade-up" style="animation-delay: 0.2s;">
+        <a href="#projects"
+           class="group px-5 py-2.5 rounded-lg bg-emerald-400 text-base font-medium text-sm hover:bg-emerald-300 transition flex items-center gap-2">
+          프로젝트 보기
+          <svg class="w-4 h-4 group-hover:translate-x-0.5 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+        <a href="mailto:xonme888@gmail.com"
+           class="px-5 py-2.5 rounded-lg border border-white/10 hover:border-white/20 hover:bg-white/5 text-zinc-300 text-sm font-medium transition">
+          연락하기
+        </a>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="absolute bottom-[-8rem] left-1/2 -translate-x-1/2 text-zinc-600 text-xs font-mono animate-fade-in" style="animation-delay: 0.6s;">
+        <div class="flex flex-col items-center gap-2">
+          <span>scroll</span>
+          <div class="w-px h-8 bg-gradient-to-b from-zinc-600 to-transparent"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="py-32 px-6">
+    <div class="max-w-3xl mx-auto" data-reveal>
+      <div class="text-xs font-mono text-emerald-400 mb-4 tracking-widest">// 01 ABOUT</div>
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-zinc-100">소개</h2>
+
+      <div class="space-y-5 text-zinc-400 leading-relaxed">
+        <p>
+          저는 <span class="text-zinc-100">도메인을 코드로 정직하게 표현하는 것</span>을 좋아하는 개발자입니다.
+          비즈니스 규칙이 프레임워크에 끌려다니지 않도록 <span class="text-emerald-400">Hexagonal Architecture</span>를
+          기준 삼아 도메인을 가운데에 두고, 인프라와 UI를 주변으로 둡니다.
+        </p>
+        <p>
+          최근에는 <span class="text-zinc-100">LLM과 RAG 시스템</span>을 직접 설계·운영하면서,
+          검색 전략 자동 선택·멀티턴 맥락 유지·테스트 격리 같은
+          production-leaning 한 문제를 즐겁게 풀고 있습니다.
+        </p>
+        <p>
+          금융 도메인의 케이스스터디로 <span class="text-zinc-100">FDS · EDD · idempotency</span> 같은
+          실 시나리오를 끝까지 설계해보고, MCP/A2A 패턴을 오픈소스로 공개해
+          제가 배운 것을 구조화된 형태로 나누고 있습니다.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 pt-8 border-t border-white/5">
+        <div>
+          <div class="text-2xl font-bold text-zinc-100">5+</div>
+          <div class="text-xs text-zinc-500 mt-1">대표 프로젝트</div>
+        </div>
+        <div>
+          <div class="text-2xl font-bold text-zinc-100">457</div>
+          <div class="text-xs text-zinc-500 mt-1">테스트 케이스</div>
+        </div>
+        <div>
+          <div class="text-2xl font-bold text-zinc-100">MIT</div>
+          <div class="text-xs text-zinc-500 mt-1">오픈소스 기여</div>
+        </div>
+        <div>
+          <div class="text-2xl font-bold text-zinc-100">∞</div>
+          <div class="text-xs text-zinc-500 mt-1">학습 의지</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="py-32 px-6 bg-base-soft/50">
+    <div class="max-w-5xl mx-auto">
+      <div data-reveal>
+        <div class="text-xs font-mono text-emerald-400 mb-4 tracking-widest">// 02 PROJECTS</div>
+        <h2 class="text-3xl md:text-4xl font-bold mb-3 text-zinc-100">대표 작업물</h2>
+        <p class="text-zinc-500 mb-12">시연 가능한 라이브 데모와 코드를 함께 확인하실 수 있습니다.</p>
+      </div>
+
+      <!-- Project 1: Calvin RAG Chatbot (Featured) -->
+      <article data-reveal class="group relative card-hover rounded-2xl border border-white/10 bg-zinc-900/40 p-8 mb-6 overflow-hidden">
+        <div class="absolute top-0 right-0 w-72 h-72 bg-emerald-500/10 rounded-full blur-[80px] pointer-events-none"></div>
+
+        <div class="relative">
+          <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="px-2 py-0.5 rounded-md bg-emerald-400/10 text-emerald-300 text-xs font-medium border border-emerald-400/20">
+                  ⭐ Featured
+                </span>
+                <span class="px-2 py-0.5 rounded-md bg-cyan-400/10 text-cyan-300 text-xs font-medium border border-cyan-400/20">
+                  Live Demo
+                </span>
+                <span class="px-2 py-0.5 rounded-md bg-amber-400/10 text-amber-300 text-xs font-medium border border-amber-400/20">
+                  🔑 초대 코드 필요
+                </span>
+              </div>
+              <h3 class="text-2xl font-bold text-zinc-100">Calvin RAG Chatbot</h3>
+              <p class="text-sm text-zinc-500 mt-1 font-mono">calvin-rag-chatbot</p>
+            </div>
+            <div class="flex gap-2">
+              <a href="https://calvin-rag-chatbot.vercel.app" target="_blank" rel="noopener"
+                 title="시연을 위해서는 초대 코드가 필요합니다. 이메일로 요청해 주세요."
+                 class="px-3 py-1.5 rounded-lg bg-emerald-400 text-base text-xs font-medium hover:bg-emerald-300 transition flex items-center gap-1.5">
+                라이브 데모
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                </svg>
+              </a>
+              <a href="https://github.com/xonme888/calvin-rag-chatbot" target="_blank" rel="noopener"
+                 class="px-3 py-1.5 rounded-lg border border-white/10 hover:border-white/20 hover:bg-white/5 text-zinc-300 text-xs font-medium transition flex items-center gap-1.5">
+                GitHub
+              </a>
+            </div>
+          </div>
+
+          <p class="text-zinc-400 leading-relaxed mb-5">
+            칼빈의 『기독교 강요』 한국어 번역본을 대상으로 한 대화형 RAG 챗봇입니다.
+            질문 의도에 따라 <span class="text-emerald-300">4가지 검색 전략을 LangGraph 오케스트레이터가 자동 선택</span>합니다.
+          </p>
+
+          <ul class="space-y-2 text-sm text-zinc-400 mb-6">
+            <li class="flex gap-2">
+              <span class="text-emerald-400 mt-1">▸</span>
+              <span>Hybrid (BM25 + Dense + RRF + FlashRank rerank), Agentic, Knowledge Graph(Neo4j Cypher), Vision(GPT-4o) — 4종 전략</span>
+            </li>
+            <li class="flex gap-2">
+              <span class="text-emerald-400 mt-1">▸</span>
+              <span>Hexagonal Architecture로 도메인 의존성 0, Protocol 기반 4종 RetrievalStrategy 어댑터</span>
+            </li>
+            <li class="flex gap-2">
+              <span class="text-emerald-400 mt-1">▸</span>
+              <span>FakeStore Mock으로 LLM/DB 호출 0회 — 457개 테스트 케이스</span>
+            </li>
+            <li class="flex gap-2">
+              <span class="text-emerald-400 mt-1">▸</span>
+              <span>Magic Link 인증, 익명 → 계정 마이그레이션(IndexedDB → Supabase)</span>
+            </li>
+          </ul>
+
+          <!-- 초대 코드 안내 -->
+          <div class="flex items-start gap-3 p-4 mb-6 rounded-lg bg-amber-400/5 border border-amber-400/20">
+            <svg class="w-5 h-5 text-amber-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+            </svg>
+            <div class="text-sm leading-relaxed">
+              <span class="text-amber-200 font-medium">라이브 시연을 원하시나요?</span>
+              <span class="text-zinc-400"> Magic Link 가입 후 사용 가능한 서비스로, 초대 코드가 필요합니다. </span>
+              <a href="mailto:xonme888@gmail.com?subject=Calvin%20RAG%20Chatbot%20%EC%B4%88%EB%8C%80%20%EC%BD%94%EB%93%9C%20%EC%9A%94%EC%B2%AD&amp;body=%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94%2C%20Calvin%20RAG%20Chatbot%20%EC%8B%9C%EC%97%B0%EC%9D%84%20%EC%9C%84%ED%95%9C%20%EC%B4%88%EB%8C%80%20%EC%BD%94%EB%93%9C%EB%A5%BC%20%EC%9A%94%EC%B2%AD%EB%93%9C%EB%A6%BD%EB%8B%88%EB%8B%A4."
+                 class="text-amber-300 font-medium underline underline-offset-2 hover:text-amber-200 transition">
+                이메일로 코드 요청 →
+              </a>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-1.5">
+            <span class="tech-tag">Python 3.11</span>
+            <span class="tech-tag">FastAPI</span>
+            <span class="tech-tag">LangGraph</span>
+            <span class="tech-tag">LangChain</span>
+            <span class="tech-tag">Next.js 15</span>
+            <span class="tech-tag">React 19</span>
+            <span class="tech-tag">TypeScript</span>
+            <span class="tech-tag">Supabase</span>
+            <span class="tech-tag">Neo4j</span>
+            <span class="tech-tag">FAISS</span>
+            <span class="tech-tag">GPT-4o</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 2: Second Brain MCP -->
+      <article data-reveal class="group relative card-hover rounded-2xl border border-white/10 bg-zinc-900/40 p-8 mb-6">
+        <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2 py-0.5 rounded-md bg-violet-400/10 text-violet-300 text-xs font-medium border border-violet-400/20">
+                Open Source
+              </span>
+              <span class="px-2 py-0.5 rounded-md bg-zinc-700/50 text-zinc-300 text-xs font-medium border border-white/10">
+                MIT
+              </span>
+            </div>
+            <h3 class="text-2xl font-bold text-zinc-100">Second Brain MCP</h3>
+            <p class="text-sm text-zinc-500 mt-1 font-mono">second-brain-mcp</p>
+          </div>
+          <a href="https://github.com/xonme888/second-brain-mcp" target="_blank" rel="noopener"
+             class="px-3 py-1.5 rounded-lg border border-white/10 hover:border-white/20 hover:bg-white/5 text-zinc-300 text-xs font-medium transition">
+            GitHub →
+          </a>
+        </div>
+
+        <p class="text-zinc-400 leading-relaxed mb-5">
+          휘발되는 학습을 자동으로 누적·연결·회상하는 개인용 세컨드 브레인.
+          <span class="text-violet-300">MCP(Model Context Protocol)와 A2A 패턴</span>을 단계별로 학습할 수 있는 reference architecture로 공개했습니다.
+        </p>
+
+        <ul class="space-y-2 text-sm text-zinc-400 mb-6">
+          <li class="flex gap-2"><span class="text-violet-400 mt-1">▸</span> 캡처(Capture) → 연결(Graph) → 회상(Recall) 파이프라인</li>
+          <li class="flex gap-2"><span class="text-violet-400 mt-1">▸</span> 민감도 정책 — Private은 Ollama 로컬 처리, Public은 외부 API</li>
+          <li class="flex gap-2"><span class="text-violet-400 mt-1">▸</span> Lv2~Lv5 워크스루 — MCP 서버 → JSON-RPC → A2A → 멀티 역할 오케스트레이터</li>
+        </ul>
+
+        <div class="flex flex-wrap gap-1.5">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">FastMCP</span>
+          <span class="tech-tag">Neo4j</span>
+          <span class="tech-tag">Ollama</span>
+          <span class="tech-tag">Chroma</span>
+          <span class="tech-tag">Anthropic</span>
+        </div>
+      </article>
+
+      <!-- Project 3: xBank Frontend -->
+      <article data-reveal class="group relative card-hover rounded-2xl border border-white/10 bg-zinc-900/40 p-8 mb-6">
+        <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2 py-0.5 rounded-md bg-amber-400/10 text-amber-300 text-xs font-medium border border-amber-400/20">
+                Case Study
+              </span>
+              <span class="px-2 py-0.5 rounded-md bg-zinc-700/50 text-zinc-300 text-xs font-medium border border-white/10">
+                Finance Domain
+              </span>
+            </div>
+            <h3 class="text-2xl font-bold text-zinc-100">xBank Frontend</h3>
+            <p class="text-sm text-zinc-500 mt-1 font-mono">bank-frontend</p>
+          </div>
+          <a href="https://github.com/xonme888/bank-frontend" target="_blank" rel="noopener"
+             class="px-3 py-1.5 rounded-lg border border-white/10 hover:border-white/20 hover:bg-white/5 text-zinc-300 text-xs font-medium transition">
+            GitHub →
+          </a>
+        </div>
+
+        <p class="text-zinc-400 leading-relaxed mb-5">
+          금융권 경험을 바탕으로 <span class="text-amber-300">백엔드와 프론트엔드를 일관된 기준으로 설계한 풀스택 은행 시스템</span>의 프론트엔드 코드베이스.
+          16개 화면에서 실제 금융 도메인의 거부 시나리오를 끝까지 구현했습니다.
+        </p>
+
+        <ul class="space-y-2 text-sm text-zinc-400 mb-6">
+          <li class="flex gap-2"><span class="text-amber-400 mt-1">▸</span> 고객(8) · 백오피스(3) · 컴플라이언스(3) · 디자인시스템(2) — 16개 화면</li>
+          <li class="flex gap-2"><span class="text-amber-400 mt-1">▸</span> 51개 ErrorCode SSOT — 백엔드 ↔ 프론트 1:1 매핑으로 정책 자동 반영</li>
+          <li class="flex gap-2"><span class="text-amber-400 mt-1">▸</span> FDS 거부 · EDD 승인 대기 · idempotency 충돌 등 거부 시나리오 UI 체계화</li>
+          <li class="flex gap-2"><span class="text-amber-400 mt-1">▸</span> Playwright 자동 녹화 5편 시연 영상 제공</li>
+        </ul>
+
+        <div class="flex flex-wrap gap-1.5">
+          <span class="tech-tag">Next.js 14</span>
+          <span class="tech-tag">TypeScript 5.5</span>
+          <span class="tech-tag">Tailwind</span>
+          <span class="tech-tag">Playwright</span>
+          <span class="tech-tag">Spring Boot 3</span>
+          <span class="tech-tag">PostgreSQL</span>
+        </div>
+      </article>
+
+      <!-- Project 4: Hanghae AI Bootcamp -->
+      <article data-reveal class="group relative card-hover rounded-2xl border border-white/10 bg-zinc-900/40 p-8 mb-6">
+        <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2 py-0.5 rounded-md bg-indigo-400/10 text-indigo-300 text-xs font-medium border border-indigo-400/20">
+                AI Bootcamp
+              </span>
+              <span class="px-2 py-0.5 rounded-md bg-zinc-700/50 text-zinc-300 text-xs font-medium border border-white/10">
+                8 Weeks
+              </span>
+            </div>
+            <h3 class="text-2xl font-bold text-zinc-100">항해 AI 부트캠프</h3>
+            <p class="text-sm text-zinc-500 mt-1 font-mono">hanghae-preview-ai</p>
+          </div>
+          <a href="https://github.com/xonme888/hanghae-preview-ai" target="_blank" rel="noopener"
+             class="px-3 py-1.5 rounded-lg border border-white/10 hover:border-white/20 hover:bg-white/5 text-zinc-300 text-xs font-medium transition">
+            GitHub →
+          </a>
+        </div>
+
+        <p class="text-zinc-400 leading-relaxed mb-5">
+          8주간의 체계적인 AI/ML 학습 여정 —
+          <span class="text-indigo-300">기초 분류 모델부터 Transformer 직접 구현, RAG, LoRA 파인튜닝</span>까지
+          실습한 프로젝트 모음입니다.
+        </p>
+
+        <ul class="space-y-2 text-sm text-zinc-400 mb-6">
+          <li class="flex gap-2"><span class="text-indigo-400 mt-1">▸</span> Self-Attention · Multi-Head Attention 메커니즘을 PyTorch로 직접 구현</li>
+          <li class="flex gap-2"><span class="text-indigo-400 mt-1">▸</span> BERT 텍스트 분류 + GPT API 고급 프롬프팅 + RAG 시스템 구축</li>
+          <li class="flex gap-2"><span class="text-indigo-400 mt-1">▸</span> 제한된 GPU 환경에서 LoRA로 대형 모델 효율적 파인튜닝</li>
+          <li class="flex gap-2"><span class="text-indigo-400 mt-1">▸</span> 멀티모달(이미지/음성) — Pyannote 기반 실시간 음성 처리</li>
+        </ul>
+
+        <div class="flex flex-wrap gap-1.5">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">PyTorch</span>
+          <span class="tech-tag">Transformers</span>
+          <span class="tech-tag">PEFT (LoRA)</span>
+          <span class="tech-tag">LangChain</span>
+          <span class="tech-tag">HuggingFace</span>
+          <span class="tech-tag">FAISS</span>
+          <span class="tech-tag">Streamlit</span>
+        </div>
+      </article>
+
+      <!-- Project 5 + 6: Side by side -->
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- AI Study -->
+        <article data-reveal class="group relative card-hover rounded-2xl border border-white/10 bg-zinc-900/40 p-8">
+          <div class="flex items-start justify-between gap-3 mb-4">
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="px-2 py-0.5 rounded-md bg-blue-400/10 text-blue-300 text-xs font-medium border border-blue-400/20">
+                  Learning
+                </span>
+              </div>
+              <h3 class="text-xl font-bold text-zinc-100">AI Study Org</h3>
+              <p class="text-xs text-zinc-500 mt-1 font-mono">study-python-ai</p>
+            </div>
+            <a href="https://github.com/orgs/study-python-ai/repositories" target="_blank" rel="noopener"
+               class="text-zinc-400 hover:text-emerald-400 transition shrink-0">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </a>
+          </div>
+
+          <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+            AI/Python 학습을 위한 별도 Organization.
+            주차별 학습 기록과 research framework를 분리해 운영합니다.
+          </p>
+
+          <div class="flex flex-wrap gap-1.5">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">AI/ML</span>
+            <span class="tech-tag">Research</span>
+          </div>
+        </article>
+
+        <!-- Fleet (Private) -->
+        <article data-reveal class="group relative card-hover rounded-2xl border border-white/10 bg-zinc-900/40 p-8">
+          <div class="flex items-start justify-between gap-3 mb-4">
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="px-2 py-0.5 rounded-md bg-rose-400/10 text-rose-300 text-xs font-medium border border-rose-400/20">
+                  Production
+                </span>
+                <span class="px-2 py-0.5 rounded-md bg-zinc-700/50 text-zinc-400 text-xs font-medium border border-white/10">
+                  🔒 Private
+                </span>
+              </div>
+              <h3 class="text-xl font-bold text-zinc-100">플릿 (Fleet)</h3>
+              <p class="text-xs text-zinc-500 mt-1 font-mono">production app</p>
+            </div>
+          </div>
+
+          <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+            <span class="text-rose-300">실제 운영 중인 서비스</span>입니다.
+            소스/링크는 비공개이지만, <span class="text-zinc-300">면접 자리에서 직접 시연</span>해 드릴 수 있습니다.
+          </p>
+
+          <div class="text-xs text-zinc-500 italic">
+            요청 시 시연 가능
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="py-32 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div data-reveal>
+        <div class="text-xs font-mono text-emerald-400 mb-4 tracking-widest">// 03 SKILLS</div>
+        <h2 class="text-3xl md:text-4xl font-bold mb-12 text-zinc-100">기술 스택</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4" data-reveal>
+        <div class="rounded-xl border border-white/10 bg-zinc-900/40 p-6">
+          <div class="text-emerald-400 text-xs font-mono mb-3">Backend</div>
+          <ul class="space-y-2 text-sm text-zinc-300">
+            <li>Python · FastAPI</li>
+            <li>Spring Boot 3</li>
+            <li>LangGraph · LangChain</li>
+            <li>Pydantic v2</li>
+          </ul>
+        </div>
+
+        <div class="rounded-xl border border-white/10 bg-zinc-900/40 p-6">
+          <div class="text-cyan-400 text-xs font-mono mb-3">Frontend</div>
+          <ul class="space-y-2 text-sm text-zinc-300">
+            <li>Next.js 14/15</li>
+            <li>React 19</li>
+            <li>TypeScript</li>
+            <li>Tailwind CSS</li>
+          </ul>
+        </div>
+
+        <div class="rounded-xl border border-white/10 bg-zinc-900/40 p-6">
+          <div class="text-violet-400 text-xs font-mono mb-3">AI / Data</div>
+          <ul class="space-y-2 text-sm text-zinc-300">
+            <li>OpenAI · Anthropic</li>
+            <li>FAISS · Chroma</li>
+            <li>Neo4j (Knowledge Graph)</li>
+            <li>MCP · A2A</li>
+          </ul>
+        </div>
+
+        <div class="rounded-xl border border-white/10 bg-zinc-900/40 p-6">
+          <div class="text-amber-400 text-xs font-mono mb-3">Infra / Test</div>
+          <ul class="space-y-2 text-sm text-zinc-300">
+            <li>Supabase · PostgreSQL</li>
+            <li>Vercel</li>
+            <li>Playwright · pytest</li>
+            <li>Hexagonal Architecture</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-32 px-6 bg-base-soft/50">
+    <div class="max-w-3xl mx-auto text-center" data-reveal>
+      <div class="text-xs font-mono text-emerald-400 mb-4 tracking-widest">// 04 CONTACT</div>
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-zinc-100">함께 일해요</h2>
+      <p class="text-zinc-400 leading-relaxed mb-10 max-w-xl mx-auto">
+        새로운 도메인 문제, 잘 설계된 코드베이스, 학습이 누적되는 팀에 관심이 많습니다.
+        편하게 연락 주세요.
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <a href="mailto:xonme888@gmail.com"
+           class="group px-6 py-3 rounded-lg bg-emerald-400 text-base font-medium hover:bg-emerald-300 transition flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          xonme888@gmail.com
+        </a>
+        <a href="https://github.com/xonme888" target="_blank" rel="noopener"
+           class="px-6 py-3 rounded-lg border border-white/10 hover:border-white/20 hover:bg-white/5 text-zinc-300 font-medium transition flex items-center gap-2">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+          </svg>
+          @xonme888
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-10 px-6 border-t border-white/5">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
+      <div class="font-mono">
+        © 2026 나승후 · Built with care
+      </div>
+      <div class="flex items-center gap-2 font-mono">
+        <span class="text-zinc-600">made with</span>
+        <span class="text-emerald-400">Tailwind CSS</span>
+        <span class="text-zinc-600">·</span>
+        <span class="text-cyan-400">Pretendard</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Tech tag style + reveal animation -->
+  <style>
+    .tech-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.125rem 0.5rem;
+      border-radius: 0.375rem;
+      font-size: 0.7rem;
+      font-family: ui-monospace, monospace;
+      background-color: rgba(255, 255, 255, 0.05);
+      color: #d4d4d8;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  </style>
+
+  <script>
+    // Reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
